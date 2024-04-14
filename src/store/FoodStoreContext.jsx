@@ -48,6 +48,9 @@ export default function FoodStoreProvider({ children }) {
         },
         removeFromCart: foodId => {
             dispatch({ type: "Remove-From-Cart", payload: foodId });
+        },
+        ifInCart: foodId => {
+            return state.cart.some(meal => meal.id === foodId);
         }
     };
 

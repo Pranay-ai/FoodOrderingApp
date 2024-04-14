@@ -1,5 +1,10 @@
 import cartIcon from '/cartIcon.svg'
+import { useContext } from 'react'
+import { FoodStoreContext } from '../store/FoodStoreContext'
+
 export  default function Header() {
+
+    const {state} = useContext(FoodStoreContext);
 
     return (
         <div className="Header">
@@ -8,7 +13,8 @@ export  default function Header() {
                 <p>"Discover flavors from around the corner or around the globe."</p>
             </div>
 
-            <div>
+            <div className='cart-icon-number'>
+                <h2>{state.cart.length}</h2>
                 <button><img src={cartIcon} alt="" /></button>
             </div>
 
