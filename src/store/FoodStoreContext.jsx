@@ -4,16 +4,18 @@ export const FoodStoreContext = createContext();
 
 const initialState = {
     meals: [],
-    cart: []
+    cart: [],
+    cartTotal: 0
 };
 
 function reducer(state, action) {
     switch (action.type) {
         case "Add-To-Cart":
             const mealToAdd = state.meals.find(meal => meal.id === action.payload);
+            mealToAdd.quantity = 1;
             return {
                 ...state,
-                cart: [...state.cart, mealToAdd]
+                cart: [...state.cart, mealToAdd],
             };
         case "Remove-From-Cart":
             return {
@@ -25,6 +27,13 @@ function reducer(state, action) {
                 ...state,
                 meals: action.payload
             };
+        case "Update-Quantity":
+            return{
+                ...state,
+                cart: state.cart.map(meal=> (
+                    meal.id===action.payload.foodId ?{...meal, quantity: action.payload.quantity} : meal
+                ))
+            }
         default:
             return state;
     }
@@ -51,6 +60,12 @@ export default function FoodStoreProvider({ children }) {
         },
         ifInCart: foodId => {
             return state.cart.some(meal => meal.id === foodId);
+        },
+        updateQuantity:(foodId, quantity) => {
+            dispatch({type:"Update-Quantity", payload: {foodId, quantity}});
+        },
+        getCartTotal: () => {
+            return state.cart.reduce((acc, meal) => acc + meal.price * meal.quantity, 0);
         }
     };
 

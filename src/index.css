@@ -130,3 +130,114 @@ body{
   flex-direction: row;
 
 }
+
+/* Style for the dialog */
+dialog {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: auto;
+  max-width: 600px;
+  padding: 20px;
+  background: white;
+  z-index: 1000;
+}
+
+/* Style for the cart modal content */
+.cart-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cart-modal h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for cart items */
+.cart-items::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  border-radius: 10px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: white;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 600px) {
+  dialog {
+      width: 90%;
+  }
+}
+
+.cart-tile {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart-tile img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.cart-tile p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+}
+
+input[type="number"] {
+  width: 50px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+}
+
+/* Style for the total price display */
+.cart-tile p:last-child {
+  margin-left: auto;
+  font-weight: bold;
+}
+
+.cart-modal-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.cart-buttons button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+

@@ -1,4 +1,4 @@
-import { useContext,useEffect } from "react";
+import { useContext,useRef} from "react";
 import { useState } from "react";
 import FoodCard from "./FoodCard.jsx";
 import { FoodStoreContext } from "../store/FoodStoreContext";

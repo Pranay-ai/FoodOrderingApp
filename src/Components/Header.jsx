@@ -1,10 +1,16 @@
 import cartIcon from '/cartIcon.svg'
-import { useContext } from 'react'
+import { useContext,useRef } from 'react'
+import CartModel from './CartModel';
 import { FoodStoreContext } from '../store/FoodStoreContext'
 
 export  default function Header() {
+    const cartRef=useRef();
 
     const {state} = useContext(FoodStoreContext);
+
+    function handleClick() {
+        cartRef.current.open();
+    }
 
     return (
         <div className="Header">
@@ -15,9 +21,9 @@ export  default function Header() {
 
             <div className='cart-icon-number'>
                 <h2>{state.cart.length}</h2>
-                <button><img src={cartIcon} alt="" /></button>
+                <button onClick={handleClick}><img src={cartIcon} alt="" /></button>
             </div>
-
+            <CartModel ref={cartRef} />
 
         </div>
 
