@@ -143,6 +143,10 @@ dialog {
   z-index: 1000;
 }
 
+dialog::backdrop {
+  background-color: rgba(0.5, 0, 0, 0.5); /* Semi-transparent black */
+}
+
 /* Style for the cart modal content */
 .cart-modal {
   display: flex;
@@ -203,11 +207,8 @@ dialog {
   border-radius: 4px;
 }
 
-.cart-tile p {
-  margin: 0;
-  color: #333;
-  font-size: 16px;
-}
+
+
 
 input[type="number"] {
   width: 50px;
@@ -241,3 +242,33 @@ input[type="number"] {
   cursor: pointer;
 }
 
+.remove-cart img{
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+.cart-item-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-item-title p {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  flex-grow: 1; /* Ensures the title takes up the available space */
+}
+.cart-tile p {
+  margin: 1px;
+  color: #333;
+  font-size: 16px;
+}
+
+.remove-cart {
+  margin-left: 10px; /* Adds some space between the title and the delete button */
+  background: none; /* Removes any default styling (optional) */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
