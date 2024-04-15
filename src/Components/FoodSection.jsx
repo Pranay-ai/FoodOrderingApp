@@ -10,7 +10,6 @@ export default function FoodSection() {
 
     return (
         <>
-        
         <div className="food-section">
         {state.meals.length === 0 && <h1>Loading...</h1>}
                 {state.meals.map((meal) => {

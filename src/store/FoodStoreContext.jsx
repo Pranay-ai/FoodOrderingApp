@@ -1,11 +1,11 @@
-import React, { createContext, useReducer, useEffect } from "react";
+import React, { createContext, useReducer, useEffect , useRef} from "react";
 
 export const FoodStoreContext = createContext();
 
 const initialState = {
     meals: [],
     cart: [],
-    cartTotal: 0
+    cartTotal: 0,
 };
 
 function reducer(state, action) {
@@ -41,6 +41,7 @@ function reducer(state, action) {
 
 export default function FoodStoreProvider({ children }) {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const orderModalRef=useRef();
 
     useEffect(() => {
         fetch("http://localhost:3000/meals")
@@ -50,6 +51,7 @@ export default function FoodStoreProvider({ children }) {
         })
         .catch(error => console.error("Failed to fetch meals", error));
     }, []);
+
 
     const actions = {
         addToCart: foodId => {
@@ -70,7 +72,7 @@ export default function FoodStoreProvider({ children }) {
     };
 
     return (
-        <FoodStoreContext.Provider value={{ state, actions }}>
+        <FoodStoreContext.Provider value={{ state, actions , orderModalRef}}>
             {children}
         </FoodStoreContext.Provider>
     );
