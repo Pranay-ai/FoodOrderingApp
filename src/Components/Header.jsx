@@ -2,11 +2,12 @@ import cartIcon from '/cartIcon.svg'
 import { useContext,useRef } from 'react'
 import CartModel from './CartModel';
 import { FoodStoreContext } from '../store/FoodStoreContext'
+import OrderSubmissionModal from './OrderSubmissionModal';
 
 export  default function Header() {
     const cartRef=useRef();
 
-    const {state} = useContext(FoodStoreContext);
+    const {state,orderModalRef} = useContext(FoodStoreContext);
 
     function handleClick() {
         cartRef.current.open();
@@ -14,6 +15,7 @@ export  default function Header() {
 
     return (
         <div className="Header">
+
             <div className="header-content">
                 <h1>BiteQuest</h1>
                 <p>"Discover flavors from around the corner or around the globe."</p>
@@ -24,6 +26,8 @@ export  default function Header() {
                 <button onClick={handleClick}><img src={cartIcon} alt="" /></button>
             </div>
             <CartModel ref={cartRef} />
+            <OrderSubmissionModal ref={orderModalRef} />
+
 
         </div>
 
