@@ -6,6 +6,7 @@ const initialState = {
     meals: [],
     cart: [],
     cartTotal: 0,
+    isOrder: false
 };
 
 function reducer(state, action) {
@@ -33,10 +34,23 @@ function reducer(state, action) {
                 cart: state.cart.map(meal=> (
                     meal.id===action.payload.foodId ?{...meal, quantity: action.payload.quantity} : meal
                 ))
-            }
+            };
+        case "Set-Order-Submit":
+            return{
+                ...state,
+                isOrder:!state.isOrder
+            };
+        case "Clear-Cart":
+            return{
+                ...state,
+                cart: [],
+            };
+
         default:
             return state;
     }
+
+
 }
 
 export default function FoodStoreProvider({ children }) {
@@ -68,7 +82,16 @@ export default function FoodStoreProvider({ children }) {
         },
         getCartTotal: () => {
             return state.cart.reduce((acc, meal) => acc + meal.price * meal.quantity, 0);
+        },
+        setOrderSubmit:()=>{
+            dispatch({type:"Set-Order-Submit"});
+        },
+        clearCart:()=>{
+            dispatch({type:"Clear-Cart"});
+        
         }
+
+
     };
 
     return (
