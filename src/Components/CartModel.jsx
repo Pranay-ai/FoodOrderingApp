@@ -31,7 +31,7 @@ const CartModel=forwardRef((props,ref)=> {
                     </div>
                     <div className="cart-buttons">
                         <button onClick={()=>DialogRef.current.close()}>Close</button>
-                        <button onClick={()=>handleOrderModalShow()}>Checkout</button>
+                        {state.cart.length!=0 && <button onClick={()=>handleOrderModalShow()}>Checkout</button>}
                     </div>
                 </div>
             </div>
