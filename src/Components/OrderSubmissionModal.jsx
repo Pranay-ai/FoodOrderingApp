@@ -1,9 +1,11 @@
 import { forwardRef, useRef, useContext, useState,useImperativeHandle } from "react";
 import { FoodStoreContext } from "../store/FoodStoreContext";
+import { act } from "react-dom/test-utils";
 
 const OrderSubmissionModal = forwardRef((props, ref) => {
     const DialogNewRef = useRef();
     const [loading, setLoading] = useState(false);
+    const [isError, setIsError] = useState(false); // Add a new state variable [isError
     const { state, actions } = useContext(FoodStoreContext);
 
     useImperativeHandle(ref, () => ({
@@ -14,7 +16,7 @@ const OrderSubmissionModal = forwardRef((props, ref) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         setLoading(true); // Set loading to true
-
+        setIsError(false); // Reset isError to false
         const formData = new FormData(event.target);
         const data = Object.fromEntries(formData.entries());
         actions.setOrderSubmit();
@@ -42,12 +44,16 @@ const OrderSubmissionModal = forwardRef((props, ref) => {
             if (response.ok) {
                 actions.clearCart();
             } else {
+                setIsError(true); // Set isError to true
                 throw new Error('Failed to submit order');
             }
         } catch (error) {
             console.error('Error submitting order:', error);
+            actions.setOrderSubmit();
+            setIsError(true); // Set isError to true
         } finally {
             setLoading(false); // Set loading to false regardless of outcome
+
         }
     };
 
@@ -71,15 +77,16 @@ const OrderSubmissionModal = forwardRef((props, ref) => {
                             <label htmlFor="street">Address</label>
                             <input type="text" id="street" name="street" required />
                             <label htmlFor="postal">Postal Code</label>
-                            <input type="text" id="postal" name="postal" required />
+                            <input type="text" id="postal" name="postal"  />
                             <label htmlFor="city">City</label>
                             <input type="text" id="city" name="city" required />
                             <button type="submit">Submit</button>
+                            {isError && <p className="error">Failed to submit order. Please Check Your Details Again</p>} 
                         </div>
                     </form>
                 </>
             )}
-            {state.isOrder && !loading && (
+            {state.isOrder && !loading &&!isError && (
                 <>
                     <h2>Order Submitted</h2>
                     <button onClick={handleCloseOrder}>Close</button>
